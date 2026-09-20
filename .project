@@ -12,6 +12,9 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
+<<<<<<< Updated upstream
 		<nature>org.eclipse.jdt.core.javanature</nature>
+=======
+>>>>>>> Stashed changes
 	</natures>
 </projectDescription>
