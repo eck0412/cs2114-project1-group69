@@ -15,7 +15,8 @@ public class LocationTest extends TestCase {
     private Location lima;
 
     // Creates Location to use for testing the Location class
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         lima = new Location("Lima", "Peru", ZoneId.of("America/Lima"),
             "Lima is a desert city.", "images/lima.png");
     }
@@ -29,7 +30,7 @@ public class LocationTest extends TestCase {
         assertEquals("Peru", lima.getCountry());
         assertEquals(ZoneId.of("America/Lima"), lima.getZoneId());
         assertEquals("Lima is a desert city.", lima.getFunFact());
-        assertEquals("image/lima.png", lima.getImagePath());
+        assertEquals("images/lima.png", lima.getImagePath());
     }
 
 
