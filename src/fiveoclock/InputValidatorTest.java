@@ -50,7 +50,7 @@ public class InputValidatorTest extends TestCase {
      * Morning times parse in both formats 
      */
     public void testParseTimeMorning() {
-        assertEquals(LocalTime.of(9, 5),validator.parseTime("9:05AM"));
+        assertEquals(LocalTime.of(9, 5),validator.parseTime("9:05 AM"));
         assertEquals(LocalTime.of(9, 5), validator.parseTime("09:05"));
     }
     

@@ -149,5 +149,17 @@ public class LocationRepository {
             "Sydney Harbour Bridge is nicknamed 'The Coathanger'.");
         addIfValid("Auckland", "New Zealand", "Pacific/Auckland",
             "Auckland is built on roughly 50 dormant volcanoes.");
+        addIfValid("Adak", "United States", "America/Adak",
+            "Adak is the westernmost city in the United States.");
+        addIfValid("Praia", "Cape Verde", "Atlantic/Cape_Verde",
+            "Cape Verde is a group of ten volcanic islands.");
+        addIfValid("Fernando de Noronha", "Brazil", "America/Noronha",
+            "The island chain is a UNESCO World Heritage site.");
+        addIfValid("Dhaka", "Bangladesh", "Asia/Dhaka",
+            "Dhaka is one of the most densely populated cities on Earth.");
+        addIfValid("Honiara", "Solomon Islands", "Pacific/Guadalcanal",
+            "Honiara sits on the island of Guadalcanal.");
+        addIfValid("Apia", "Samoa", "Pacific/Apia",
+            "Samoa skipped December 30, 2011 to switch time zones.");
     }
 }

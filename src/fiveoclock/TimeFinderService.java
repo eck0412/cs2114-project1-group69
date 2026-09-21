@@ -4,108 +4,130 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Optional;
+import java.util.Random;
+
 /**
- * // -------------------------------------------------------------------------
-/**
- *  Write a one-sentence summary of your class here.
- *  Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
- * 
- *  @author connorbo
- *  @version Sep 16, 2026
+ * This class calculates the locations that are inside the 5PM hour.
+ *
+ * @author Connor Bo
+ * @version Sep 16, 2026
  */
-
-
-
 public class TimeFinderService
 {
-    private static final int FIVE_PM_HOUR = 0;
-    //~ Fields ................................................................
+    // ~ Fields ...............................................................
+
+    /** The hour, on a 24-hour clock, that counts as "five o'clock". */
+    private static final int FIVE_PM_HOUR = 17;
+
     private final LocationRepository repository;
     private final Random random;
-    
-    // ----------------------------------------------------------
+
+    // ~ Constructors .........................................................
+
     /**
-     * Create a new TimeFinderService object.
-     * @param repository the source of locations, cannot be null 
+     * Creates a service that draws its locations from the given repository.
+     *
+     * @param repository
+     *            the source of saved locations; must not be null
+     * @throws IllegalArgumentException
+     *             if repository is null
      */
-    //~ Constructors ..........................................................
-    public TimeFinderService(LocationRepository repository) {
+    public TimeFinderService(LocationRepository repository)
+    {
         this(repository, new Random());
     }
-    //~Public  Methods ........................................................
-    // ----------------------------------------------------------
+
+
     /**
-     * Create a new TimeFinderService object.
-     * @param rep the source of saved locations, should not be null(i willbesad)
-     * @param rand randomizer
+     * Creates a service with a caller-supplied Random, which lets tests make
+     * the random choice predictable.
+     *
+     * @param rep
+     *            the source of saved locations; must not be null
+     * @param rand
+     *            the randomness source; must not be null
+     * @throws IllegalArgumentException
+     *             if either argument is null
      */
     public TimeFinderService(LocationRepository rep, Random rand)
     {
         if (rep == null)
         {
             throw new IllegalArgumentException("Repository must not be null");
-
         }
-        
+
         if (rand == null)
         {
             throw new IllegalArgumentException("Random must not be null");
-
         }
-        
+
         this.repository = rep;
-        
         this.random = rand;
-   
     }
-    // ----------------------------------------------------------
+
+
+    // ~ Public Methods ......................................................
+
     /**
-     * Place a description of your method here.
-     * @param m where to evaluate
-     * @return the matching locations, could be empty
+     * Finds every saved location whose local time at the given moment falls
+     * between 5:00 PM and 5:59 PM.
+     *
+     * @param m
+     *            the instant to evaluate; must not be null
+     * @return the matching locations, possibly empty
+     * @throws IllegalArgumentException
+     *             if m is null
      */
-    public List<Location>findLocationsAtFive(Instant m){
+    public List<Location> findLocationsAtFive(Instant m)
+    {
         if (m == null)
         {
             throw new IllegalArgumentException("Moment must not be null");
-
         }
-        
+
         List<Location> matches = new ArrayList<>();
-        for (Location l : repository.getAllLocations()) {
+        for (Location l : repository.getAllLocations())
+        {
             if (getLocalTime(l, m).getHour() == FIVE_PM_HOUR)
             {
                 matches.add(l);
             }
         }
-        
+
         return matches;
-            
     }
-    
-    // ----------------------------------------------------------
+
+
     /**
-     * Place a description of your method here.
-     * @param locations the candidate can choose from
-     * @return  one randomly chosen location, or a empty one if null
+     * Chooses one location at random from the given candidates.
+     *
+     * @param locations
+     *            the candidates to choose from
+     * @return one randomly chosen location, or an empty Optional when the
+     *         list is null or empty
      */
-    public Optional<Location> chooseRandomLocation(List<Location> locations){
-        if (locations == null || locations.isEmpty()) {
+    public Optional<Location> chooseRandomLocation(List<Location> locations)
+    {
+        if (locations == null || locations.isEmpty())
+        {
             return Optional.empty();
         }
-        
+
         return Optional.of(locations.get(random.nextInt(locations.size())));
     }
-    
-    // ----------------------------------------------------------
+
+
     /**
-     * Place a description of your method here.
-     * @param l location whose zone should be used
-     * @param m the instant used to convert
-     * @return  the local date and time
+     * Converts an instant into the local date and time for a location.
+     *
+     * @param l
+     *            the location whose zone should be used
+     * @param m
+     *            the instant to convert
+     * @return the local date and time
+     * @throws IllegalArgumentException
+     *             if either argument is null
      */
     public ZonedDateTime getLocalTime(Location l, Instant m)
     {
@@ -113,19 +135,12 @@ public class TimeFinderService
         {
             throw new IllegalArgumentException("Location cannot be null");
         }
-        
+
         if (m == null)
         {
             throw new IllegalArgumentException("moment cannot be null");
         }
-        
+
         return m.atZone(l.getZoneId());
     }
-    
-    
-    
-    
-    
-    
-    
 }

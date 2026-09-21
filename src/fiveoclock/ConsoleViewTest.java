@@ -1,6 +1,5 @@
 package fiveoclock;
 
-import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.ZoneId;
@@ -22,7 +21,8 @@ public class ConsoleViewTest extends TestCase {
     /** 
      * Prepares a capture stream and a sample location.
      */
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         captured = new ByteArrayOutputStream();
         output = new PrintStream(captured);
         lima = new Location("Lima", "Peru", ZoneId.of("America/Lima"),
@@ -90,7 +90,7 @@ public class ConsoleViewTest extends TestCase {
      * readTime returns the entered text and prompts first.
      */
     public void testReadTime() {
-        String entered = viewReading("5:30 PM\n").readLine();
+        String entered = viewReading("5:30 PM\n").readTime();
 
         assertEquals("5:30 PM", entered);
         assertTrue(printed().contains("Enter a time"));
@@ -100,14 +100,14 @@ public class ConsoleViewTest extends TestCase {
      * Blank input is returned as-is for the validator to reject.
      */
     public void testReadTimeReturnsBlankInput() {
-        assertEquals("   ", viewReading("   \n").readLine());
+        assertEquals("   ", viewReading("   \n").readTime());
     }
 
     /** 
      * Exhausted input returns an empty string instead of throwing. 
      */
     public void testReadTimeWithNoInput() {
-        assertEquals("", viewReading("").readLine());
+        assertEquals("", viewReading("").readTime());
     }
 
     /** 
