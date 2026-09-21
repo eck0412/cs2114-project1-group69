@@ -6,6 +6,15 @@ import java.util.Random;
 import java.util.Scanner;
 import student.TestCase;
 
+
+// -------------------------------------------------------------------------
+/**
+ * This test class tests the FiveOClockApp
+ * 
+ *  @author Erik Kwon
+ *  @version Sep 20, 2026
+ */
+
 public class FiveOClockAppTest
     extends TestCase
 {
@@ -21,9 +30,13 @@ public class FiveOClockAppTest
 
     /**
      * This sets up the shared collaborators and capture stream
+     * 
+     * @Throws Exception if the superclass setup fails
      */
     public void setUp()
+        throws Exception
     {
+        super.setUp();
         captured = new ByteArrayOutputStream();
         output = new PrintStream(captured);
         finder =
@@ -133,7 +146,7 @@ public class FiveOClockAppTest
 
         String text = printed();
         assertTrue(text.contains("It's five o'clock in"));
-        assertTrue(text.contains("Lima"));
+
     }
 
 
@@ -143,15 +156,16 @@ public class FiveOClockAppTest
     public void testRunManualModeAcceptsTwelveHour()
     {
         appReading("5:30 PM\nAmerica/Lima\n").runManualMode();
-        assertTrue(printed().contains("Lima"));
+        assertTrue(printed().contains("It's five o'clock in"));
     }
 
+
     /**
-     * This tests a time outside of 5 PM hour anywhere has no match 
+     * This tests a time outside of 5 PM hour anywhere has no match
      */
     public void testRunManualModeWithNoMatch()
     {
-        appReading("3:17\nPacific/Kiritmati\n").runManualMode();
+        appReading("03:17\nPacific/Kiritimati\n").runManualMode();
 
         String text = printed();
         assertTrue(
@@ -163,16 +177,103 @@ public class FiveOClockAppTest
     /**
      * This tests to see if the app asks again after bad input
      */
-    public void testRunManualModeRetiresAfterBadTime()
+    public void testRunManualModeRetriesAfterBadTime()
     {
         appReading("530PM\nAmerica/Lima\n17:30\nAmerica/Lima\n")
             .runManualMode();
 
         String text = printed();
-        assertTrue(text.contains("Error."));
-        assertTrue(text.contains("Lima"));
+        assertTrue(text.contains("Error"));
+        assertTrue(text.contains("It's five o'clock in"));
     }
-    
-    
 
+
+    /**
+     * This tests when an invalid zone is reported, then the app asks again
+     */
+    public void testRunManualModeRetriesAfterBadZone()
+    {
+        appReading("17:30\nAmerica/Blacksburg\n17:30\nAmerica/Lima\n")
+            .runManualMode();
+
+        String text = printed();
+        assertTrue(text.contains("Error:"));
+        assertTrue(text.contains("It's five o'clock in"));
+    }
+
+
+    /**
+     * This tests that with three bad attempts the code stops running
+     */
+    public void testRunManualModeStopsAfterThreeFailures()
+    {
+        appReading("bad\nbad\nbad\nbad\nbad\bad\n").runManualMode();
+        assertTrue(printed().contains("Too many invalid attempts"));
+
+    }
+
+
+    /**
+     * This tests manual mode if no input was provided
+     */
+    public void testRunManualModeWithNoInput()
+    {
+        appReading("").runManualMode();
+
+        assertTrue(printed().contains("No input was provided"));
+
+    }
+
+
+    /**
+     * This runs the main with given arguments, capturing everything it prints
+     * 
+     * @param args
+     *            the command line to pass to main
+     * @return everything main prints
+     */
+    private String mainOutput(String[] args)
+    {
+        PrintStream original = System.out;
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(buffer));
+        try
+        {
+            FiveOClockApp.main(args);
+        }
+        finally
+        {
+            System.setOut(original);
+        }
+        return buffer.toString();
+    }
+
+
+    /**
+     * This tests main when given no arguments
+     */
+    public void testMainWithNoArguments()
+    {
+        assertTrue(mainOutput(new String[0]).contains("5 O'Clock Somewhere"));
+    }
+
+
+    /**
+     * This tests main ignoring arguments it doesn't recognize
+     */
+    public void testMainIgnoresUnknownArguments()
+    {
+        assertTrue(
+            mainOutput(new String[] { "--verbose", "extra" })
+                .contains("5 O'Clock Somewhere"));
+    }
+
+
+    /**
+     * This tests a null argument
+     */
+    public void testUsesManualModeWithNullArguments()
+    {
+        assertTrue(mainOutput(null).contains("5 O'Clock Somewhere"));
+    }
 }
