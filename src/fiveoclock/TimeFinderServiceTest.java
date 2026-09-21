@@ -10,23 +10,17 @@ import java.util.Optional;
 import java.util.Random;
 import student.TestCase;
 
-
-<<<<<<< HEAD
-
-public class TimeFinderServiceTest 
-    extends TestCase
-=======
 // -------------------------------------------------------------------------
 /**
- *  Tests the time finder service
- *  Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ * Tests the time finder service Follow it with additional details about its
+ * purpose, what abstraction it represents, and how to use it.
  * 
- *  @author connorbo
- *  @version Sep 21, 2026
+ * @author connorbo
+ * @version Sep 21, 2026
  */
-class TimeFinderServiceTest extends TestCase
->>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
+
+public class TimeFinderServiceTest
+    extends TestCase
 {
 
     // ~ Fields ................................................................
@@ -44,37 +38,27 @@ class TimeFinderServiceTest extends TestCase
         service = new TimeFinderService(repository, new Random(42));
         lima = new Location("Lima", "Peru", ZoneId.of("America/Lima"));
     }
-<<<<<<< HEAD
 
 
     // ~Public Methods ........................................................
+    // ----------------------------------------------------------
+    /**
+     * tests the constructor
+     */
     public void testConstructor()
     {
         assertNotNull(new TimeFinderService(repository));
     }
 
 
-    public void testConstructorRejectsN()
-    {
-        try
-        {
-=======
-    //~Public  Methods ........................................................
-    // ----------------------------------------------------------
-    /**
-     * tests the constructor
-     */
-    public void testConstructor() {
-        assertNotNull(new TimeFinderService(repository));
-    }
-    
     // ----------------------------------------------------------
     /**
      * tests reject of null
      */
-    public void testConstructorRejectsN() {
-        try {
->>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
+    public void testConstructorRejectsN()
+    {
+        try
+        {
             new TimeFinderService(null);
             fail("Expected an IllegalArgumentException for a null repo.");
         }
@@ -83,19 +67,13 @@ class TimeFinderServiceTest extends TestCase
             assertNotNull(e.getMessage());
         }
     }
-<<<<<<< HEAD
 
 
-    public void testFindLocationsAtFive()
-    {
-=======
-    
-    // ----------------------------------------------------------
     /**
      * tests locations at 5
      */
-    public void testFindLocationsAtFive() {
->>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
+    public void testFindLocationsAtFive()
+    {
         List<Location> matches = service.findLocationsAtFive(LIMA_AT_FIVE);
 
         assertTrue(matches.contains(lima));
@@ -108,15 +86,11 @@ class TimeFinderServiceTest extends TestCase
         }
 
     }
-<<<<<<< HEAD
 
 
-=======
-    // ----------------------------------------------------------
     /**
      * tests boundaries
      */
->>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
     public void testFindLocationsAtFiveBoundaries()
     {
         Instant justIn = Instant.parse("2026-09-16T22:00:00Z");
@@ -130,16 +104,11 @@ class TimeFinderServiceTest extends TestCase
         assertFalse(service.findLocationsAtFive(justAfter).contains(lima));
 
     }
-<<<<<<< HEAD
 
 
-=======
-    
-    // ----------------------------------------------------------
     /**
      * tests the catching of null
      */
->>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
     public void testFailRejectsNull()
     {
         try
@@ -152,16 +121,11 @@ class TimeFinderServiceTest extends TestCase
             assertNotNull(e.getMessage());
         }
     }
-<<<<<<< HEAD
 
 
-=======
-    
-    // ----------------------------------------------------------
     /**
      * test the randomization of the choosing process
      */
->>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
     public void testChooseRandomLocation()
     {
         Location tokyo =
