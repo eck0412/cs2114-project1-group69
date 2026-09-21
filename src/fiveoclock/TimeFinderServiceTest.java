@@ -11,9 +11,22 @@ import java.util.Random;
 import student.TestCase;
 
 
+<<<<<<< HEAD
 
 public class TimeFinderServiceTest 
     extends TestCase
+=======
+// -------------------------------------------------------------------------
+/**
+ *  Tests the time finder service
+ *  Follow it with additional details about its purpose, what abstraction
+ *  it represents, and how to use it.
+ * 
+ *  @author connorbo
+ *  @version Sep 21, 2026
+ */
+class TimeFinderServiceTest extends TestCase
+>>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
 {
 
     // ~ Fields ................................................................
@@ -31,6 +44,7 @@ public class TimeFinderServiceTest
         service = new TimeFinderService(repository, new Random(42));
         lima = new Location("Lima", "Peru", ZoneId.of("America/Lima"));
     }
+<<<<<<< HEAD
 
 
     // ~Public Methods ........................................................
@@ -44,6 +58,23 @@ public class TimeFinderServiceTest
     {
         try
         {
+=======
+    //~Public  Methods ........................................................
+    // ----------------------------------------------------------
+    /**
+     * tests the constructor
+     */
+    public void testConstructor() {
+        assertNotNull(new TimeFinderService(repository));
+    }
+    
+    // ----------------------------------------------------------
+    /**
+     * tests reject of null
+     */
+    public void testConstructorRejectsN() {
+        try {
+>>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
             new TimeFinderService(null);
             fail("Expected an IllegalArgumentException for a null repo.");
         }
@@ -52,10 +83,19 @@ public class TimeFinderServiceTest
             assertNotNull(e.getMessage());
         }
     }
+<<<<<<< HEAD
 
 
     public void testFindLocationsAtFive()
     {
+=======
+    
+    // ----------------------------------------------------------
+    /**
+     * tests locations at 5
+     */
+    public void testFindLocationsAtFive() {
+>>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
         List<Location> matches = service.findLocationsAtFive(LIMA_AT_FIVE);
 
         assertTrue(matches.contains(lima));
@@ -68,8 +108,15 @@ public class TimeFinderServiceTest
         }
 
     }
+<<<<<<< HEAD
 
 
+=======
+    // ----------------------------------------------------------
+    /**
+     * tests boundaries
+     */
+>>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
     public void testFindLocationsAtFiveBoundaries()
     {
         Instant justIn = Instant.parse("2026-09-16T22:00:00Z");
@@ -83,8 +130,16 @@ public class TimeFinderServiceTest
         assertFalse(service.findLocationsAtFive(justAfter).contains(lima));
 
     }
+<<<<<<< HEAD
 
 
+=======
+    
+    // ----------------------------------------------------------
+    /**
+     * tests the catching of null
+     */
+>>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
     public void testFailRejectsNull()
     {
         try
@@ -97,8 +152,16 @@ public class TimeFinderServiceTest
             assertNotNull(e.getMessage());
         }
     }
+<<<<<<< HEAD
 
 
+=======
+    
+    // ----------------------------------------------------------
+    /**
+     * test the randomization of the choosing process
+     */
+>>>>>>> bcd811d18d434a41b114bc65b5311fa927233a08
     public void testChooseRandomLocation()
     {
         Location tokyo =
