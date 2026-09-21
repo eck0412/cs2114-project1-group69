@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Scanner;
-
+import student.TestCase;
 
 /**
  * Tests the ConsoleView class.
