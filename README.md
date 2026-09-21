@@ -28,5 +28,41 @@ automatically by Java's `java.time` package.
 Eclipse compiles automatically on save. To force a rebuild, use
 **Project → Clean → Clean all projects**.
 
+### Switching to manual mode
+
+Manual mode lets you supply a time and time zone yourself. It is turned on
+by passing the program argument `--manual`.
+
+1. **Run → Run Configurations…**
+2. Under **Java Application**, select **FiveOClockApp**
+3. Open the **Arguments** tab
+4. In the **Program arguments** box, type `--manual`
+5. Click **Apply**, then **Run**
+
+The app now prompts you instead of reading the clock:
+
+```
+Enter a time (for example 5:30 PM or 17:30): 9:00 AM
+Enter a time zone (for example America/New_York): America/New_York
+
+It's five o'clock in Dubai, United Arab Emirates!
+  Time zone:  Asia/Dubai
+  Local time: 5:00 PM on Sunday, September 20
+  Fun fact:   The Burj Khalifa is over half a mile tall.
+```
+
+Click inside the Console pane before typing, or your keystrokes go to the
+editor instead.
+
+### Switching back to automatic mode
+
+The `--manual` argument is **saved in the run configuration**, so it keeps
+applying to every later run until you remove it.
+
+1. **Run → Run Configurations…**
+2. Select **FiveOClockApp**
+3. Open the **Arguments** tab
+4. **Delete `--manual`** from the Program arguments box
+5. Click **Apply**, then **Run**
 
  
