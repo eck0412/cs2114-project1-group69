@@ -109,7 +109,7 @@ public class ConsoleView {
     /**
      * Reads one line returning "" when there is not more input
      */
-    private String readLine() {
+    public String readLine() {
         if (!scanner.hasNextLine()) {
             output.println();
             return "";
