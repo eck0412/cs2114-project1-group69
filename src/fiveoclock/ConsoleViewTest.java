@@ -1,11 +1,12 @@
 package fiveoclock;
 
+import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Scanner;
-import student.TestCase;
+
 
 /**
  * Tests the ConsoleView class.
@@ -89,7 +90,7 @@ public class ConsoleViewTest extends TestCase {
      * readTime returns the entered text and prompts first.
      */
     public void testReadTime() {
-        String entered = viewReading("5:30 PM\n").readTime();
+        String entered = viewReading("5:30 PM\n").readLine();
 
         assertEquals("5:30 PM", entered);
         assertTrue(printed().contains("Enter a time"));
@@ -99,14 +100,14 @@ public class ConsoleViewTest extends TestCase {
      * Blank input is returned as-is for the validator to reject.
      */
     public void testReadTimeReturnsBlankInput() {
-        assertEquals("   ", viewReading("   \n").readTime());
+        assertEquals("   ", viewReading("   \n").readLine());
     }
 
     /** 
      * Exhausted input returns an empty string instead of throwing. 
      */
     public void testReadTimeWithNoInput() {
-        assertEquals("", viewReading("").readTime());
+        assertEquals("", viewReading("").readLine());
     }
 
     /** 

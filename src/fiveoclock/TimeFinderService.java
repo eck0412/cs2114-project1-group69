@@ -21,6 +21,7 @@ import java.util.Optional;
 
 public class TimeFinderService
 {
+    private static final int FIVE_PM_HOUR = 0;
     //~ Fields ................................................................
     private final LocationRepository repository;
     private final Random random;
