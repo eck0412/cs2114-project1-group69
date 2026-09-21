@@ -11,6 +11,15 @@ import java.util.Random;
 import student.TestCase;
 
 
+// -------------------------------------------------------------------------
+/**
+ *  Tests the time finder service
+ *  Follow it with additional details about its purpose, what abstraction
+ *  it represents, and how to use it.
+ * 
+ *  @author connorbo
+ *  @version Sep 21, 2026
+ */
 class TimeFinderServiceTest extends TestCase
 {
 
@@ -31,10 +40,18 @@ class TimeFinderServiceTest extends TestCase
         lima = new Location("Lima", "Peru", ZoneId.of("America/Lima"));
     }
     //~Public  Methods ........................................................
+    // ----------------------------------------------------------
+    /**
+     * tests the constructor
+     */
     public void testConstructor() {
         assertNotNull(new TimeFinderService(repository));
     }
     
+    // ----------------------------------------------------------
+    /**
+     * tests reject of null
+     */
     public void testConstructorRejectsN() {
         try {
             new TimeFinderService(null);
@@ -46,6 +63,10 @@ class TimeFinderServiceTest extends TestCase
         }
     }
     
+    // ----------------------------------------------------------
+    /**
+     * tests locations at 5
+     */
     public void testFindLocationsAtFive() {
         List<Location> matches = service.findLocationsAtFive(LIMA_AT_FIVE);
 
@@ -58,6 +79,10 @@ class TimeFinderServiceTest extends TestCase
        }
        
     }
+    // ----------------------------------------------------------
+    /**
+     * tests boundaries
+     */
     public void testFindLocationsAtFiveBoundaries()
     {
         Instant justIn = Instant.parse("2026-09-16T22:00:00Z");
@@ -74,6 +99,10 @@ class TimeFinderServiceTest extends TestCase
 
     }
     
+    // ----------------------------------------------------------
+    /**
+     * tests the catching of null
+     */
     public void testFailRejectsNull()
     {
         try
@@ -87,6 +116,10 @@ class TimeFinderServiceTest extends TestCase
         }
     }
     
+    // ----------------------------------------------------------
+    /**
+     * test the randomization of the choosing process
+     */
     public void testChooseRandomLocation()
     {
         Location tokyo = new Location("Tokyo", "Japan",
